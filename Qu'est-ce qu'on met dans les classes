@@ -1,7 +1,22 @@
 class Graphe
 
 class Individu
+  attributs 
+    liste int
+    taille du vecteur #nombre de villes
+    
 
 class Population
+  attributs 
+    liste d'individus
+  fonction sélection
+    sélection par tournoi
+    sélection par rang
+    sélection par roulette
+  fonction génération
+    hybridation
+    mutation
+    reproduction
+  fonction affichage population
 
 class Chemin
