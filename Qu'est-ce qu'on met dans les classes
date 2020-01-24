@@ -3,12 +3,14 @@ class Graphe
 class Individu
   attributs 
     liste int
-    taille du vecteur #nombre de villes
-    
+    taille du vecteur #nombre de villes, les entiers sont des villes
+  fonction d'adaptation
+    calculer à partir de la classe graphe
 
 class Population
   attributs 
     liste d'individus
+    best_individu
   fonction sélection
     sélection par tournoi
     sélection par rang
@@ -18,5 +20,11 @@ class Population
     mutation
     reproduction
   fonction affichage population
+  fonction attribution best
 
-class Chemin
+class Chemin <Individu>
+  attributs
+  
+  
+  
+Test d'arrêt : il n'y a plus d'évolution du meilleur chemin depuis un certain temps
