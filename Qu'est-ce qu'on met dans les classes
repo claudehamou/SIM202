@@ -4,8 +4,8 @@ class Individu
   attributs 
     liste int
     taille du vecteur #nombre de villes, les entiers sont des villes
-  fonction d'adaptation
-    calculer à partir de la classe graphe
+    fonction d'adaptation (virtuel)
+    
 
 class Population
   attributs 
@@ -23,7 +23,7 @@ class Population
   fonction attribution best
 
 class Chemin <Individu>
-  attributs
+  évaluation fonction adaptation
   
   
   
