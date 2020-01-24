@@ -4,15 +4,15 @@
 %-----------------------------------------
 %-----------------------------------------
 
-%--------- Sélection des villes ----------
+%--------- SÃ©lection des villes ----------
 Image = imread('Carte_France.jpg') ;
 image(Image) ;
 
-% Récupère les coordonnées des villes
+% RÃ©cupÃ¨re les coordonnÃ©es des villes
 [x y] = ginput ;
 close() ;
 
-% Nombre de villes sélectionnées
+% Nombre de villes sÃ©lectionnÃ©es
 nbr_villes = length(x) ;
 villes = [1:nbr_villes] ;
 
@@ -24,7 +24,7 @@ for ville_1=1:nbr_villes
     
     for ville_2=ville_1:nbr_villes
         
-        % Ville retourne sur elle-même
+        % Ville retourne sur elle-mÃªme
         if ville_1 == ville_2
             distance(ville_1,ville_2) = -1 ;
         else 
@@ -33,10 +33,22 @@ for ville_1=1:nbr_villes
         end         
     end
 end 
-% Mettre dans un fichier la matrice des distances ? 
+
+% Mettre dans un fichier la matrice des distances
+fid = fopen('Matrice_distance.txt','w') ;
+
+for k=1:nbr_villes
+    for i=1:nbr_villes
+        fprintf(fid,'%4.3d  ',distance(k,i)) ;
+    end 
+    fprintf(fid,'\n') ;
+end 
+fclose(fid) ;
+
 % Lire un fichier pour le chemin optimal
-% Retourne le chemin optimal
-chemin = [2 5 1 3 4] ;
+% Format du fichier un espace entre chaque ville
+f_chemin = fopen('Chemin.txt','r') ;
+chemin = fscanf(f_chemin,'%d',nbr_villes*2) ;
+chemin = chemin' ;
+  
 affiche_chemin(chemin,Image,x,y,nbr_villes) ;
-
-
