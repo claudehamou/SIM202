@@ -64,20 +64,23 @@ double Chemin::adaptation()
     return adapt;
 }
 
-Chemin crossover(Chemin C1,Chemin C2)
+Chemin* crossover(Chemin C1,Chemin C2)
 {
-    Chemin C=Chemin(C1.graphe);
+    Chemin C(C1.graphe);
+    Chemin D(C1.graphe);
     srand (time(NULL));
-    int l = rand() % C.villes.size();
-    cout<<l<<endl;
+    int l = rand() % (C.villes.size()-1);
     for (int k=0;k<l+1;k++)
     {
         C.villes.at(k)=C1.villes.at(k);   //associer les l+1 premieres villes de C1 aux l+1 premieres villes de C
+        D.villes.at(k)=C2.villes.at(k);
     }
-    int d=0;
+    int cd=0;
+    int dd=0;
     for (int k=l+1;k<C.villes.size();k++)
     {
         int d2=0;
+        int d3=0;
         int j=0;
         while (d2==0 && j<l+1)
         {
@@ -86,26 +89,75 @@ Chemin crossover(Chemin C1,Chemin C2)
         }
         if (d2==0)
         {
-            C.villes.at(k-d)=C2.villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
+            C.villes.at(k-cd)=C2.villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
         }
-        d+=d2;
+        cd+=d2;
+        j=0;
+        while (d3==0 && j<l+1)
+        {
+            if (C1.villes.at(k)==D.villes.at(j)){d3++;}
+            j++;
+        }
+        if (d3==0)
+        {
+            D.villes.at(k-dd)=C1.villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
+        }
+        dd+=d3;
     }
-    while (d!=0)
+    while (cd!=0)
     {
         int rep=0;
         int i=0;
         while(rep==0) //reperer les indices de villes qui ne sont pas dans C
         {
             int k=0;
-            while (C.villes.at(k)!=i && k<C.villes.size()-d)
+            while (C.villes.at(k)!=i && k<C.villes.size()-cd)
             {
                 k++;
             }
-            if (k==C.villes.size()-d) {rep++;}
+            if (k==C.villes.size()-cd) {rep++;}
             i++;
         }
-        C.villes[C.villes.size()-d]=i-1;    //ajouter les villes non remplies
-        d--;
+        C.villes[C.villes.size()-cd]=i-1;    //ajouter les villes non remplies
+        cd--;
     }
-    return C;
+    while (dd!=0)
+    {
+        int rep=0;
+        int i=0;
+        while(rep==0) //reperer les indices de villes qui ne sont pas dans C
+        {
+            int k=0;
+            while (D.villes.at(k)!=i && k<D.villes.size()-dd)
+            {
+                k++;
+            }
+            if (k==D.villes.size()-dd) {rep++;}
+            i++;
+        }
+        D.villes[D.villes.size()-dd]=i-1;    //ajouter les villes non remplies
+        dd--;
+    }
+    Chemin* K=new Chemin[2];
+    K[0]=C;
+    K[1]=D;
+    return K;
 }
+
+Chemin Chemin::flip()
+{
+    srand (time(NULL));
+    int l = (rand() % (villes.size()-1))+1;
+    int k = rand() % (villes.size()-1);
+    cout<<l<<" "<<k<<endl;
+    int ck=villes.at(k);
+    int ck2=villes.at(k+1);
+    int cl=villes.at(l);
+    int cl2=villes.at(l-1);
+    villes.at(l)=ck;
+    villes.at(l-1)=ck2;
+    villes.at(k+1)=cl2;
+    villes.at(k)=cl;
+    return *this;
+}
+

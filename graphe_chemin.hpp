@@ -54,10 +54,11 @@ public :
 
     friend ostream & operator <<(ostream &, const Chemin&);
 
-    double adaptation(); //calcule la fonction d'adaptation, ie le cout du chemin
+    double adaptation();    //calcule la fonction d'adaptation, ie le cout du chemin
+    Chemin flip();    //procede a la mutation
 };
 
-Chemin crossover(Chemin,Chemin);
+Chemin* crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
 
 inline ostream & operator <<(ostream & out, const Chemin &C)
 {
