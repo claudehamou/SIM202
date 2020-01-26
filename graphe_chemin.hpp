@@ -1,9 +1,13 @@
 #ifndef GRAPHE_CHEMIN_HPP_INCLUDED
 #define GRAPHE_CHEMIN_HPP_INCLUDED
 
+#include "individu.h"
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
+
+////////////////////////////////////////////////// CLASSE GRAPHE ///////////////////////////////////////////////////
 
 class Graphe
 {
@@ -30,6 +34,39 @@ inline ostream & operator <<(ostream & out, const Graphe &G)
         }
         out<<G(i,G.nbvilles-1)<<"|"<<"\n";
     }
+    return out ;
+}
+
+////////////////////////////////////////////////// CLASSE CHEMIN ///////////////////////////////////////////////////
+
+class Chemin : public Individu
+{
+public :
+    Graphe *graphe;
+    vector<int> villes;
+
+    Chemin();
+    Chemin(Graphe*);    //construction d'un chemin a partir d'un graphe
+
+    int operator()(int i) const {return villes.at(i);}; // ieme coordonnee en lecteur
+    int& operator()(int i) {return villes.at(i);}; // ieme coordonnee en ecriture
+
+
+    friend ostream & operator <<(ostream &, const Chemin&);
+
+    double adaptation(); //calcule la fonction d'adaptation, ie le cout du chemin
+};
+
+Chemin crossover(Chemin,Chemin);
+
+inline ostream & operator <<(ostream & out, const Chemin &C)
+{
+    out<<"(";
+    for (int i=0;i<(C.villes).size()-1;i++)
+    {
+        out<<C(i)<<",";
+    }
+    out<<C((C.villes).size()-1)<<")";
     return out ;
 }
 
