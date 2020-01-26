@@ -1,12 +1,13 @@
 class Graphe
-
+  attributs
+    nombre de villes
+    tableau des distances
+  
 class Individu
   attributs 
-    liste int
-    taille du vecteur #nombre de villes, les entiers sont des villes
-    fonction d'adaptation (virtuel)
+    /
+  fonction d'adaptation (virtuel)
     
-
 class Population
   attributs 
     liste d'individus
@@ -23,7 +24,12 @@ class Population
   fonction attribution best
 
 class Chemin <Individu>
+  attributs
+    graphe*
+    vector des villes
   évaluation fonction adaptation
+  fonction de crossover
+  fonction de mutation
   
   
   
