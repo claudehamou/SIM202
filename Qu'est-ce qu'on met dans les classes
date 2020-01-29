@@ -5,7 +5,7 @@ class Graphe
   
 class Individu
   attributs 
-    /
+    aucun : classe abstraite ; pas de constructeurs etc non plus
   fonction d'adaptation (virtuel)
     
 class Population
@@ -17,8 +17,8 @@ class Population
     sélection par rang
     sélection par roulette
   fonction génération
-    hybridation
-    mutation
+    hybridation /// non, dans Chemin
+    mutation  /// non, dans Chemin
     reproduction
   fonction affichage population
   fonction attribution best
@@ -30,6 +30,7 @@ class Chemin <Individu>
   évaluation fonction adaptation
   fonction de crossover
   fonction de mutation
+  chemin init ?? pour initialiser P0, créer un chemin initial tel que on part de 0 et on prend la ville la plus proche à chaque fois.
   
   
   
