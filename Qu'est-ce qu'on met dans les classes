@@ -1,13 +1,12 @@
-class Graphe
+class Graphe ~~~ DONE
   attributs
     nombre de villes
     tableau des distances
   
-class Individu
+class Individu ~~~ DONE
   attributs 
     aucun : classe abstraite ; pas de constructeurs etc non plus
   fonction d'adaptation (virtuel)
-  fonction 1 individu initial (virtuel)
     
 class Population
   attributs 
@@ -24,7 +23,7 @@ class Population
   fonction affichage population
   fonction attribution best
 
-class Chemin <Individu>
+class Chemin <Individu> ~~~ DONE
   attributs
     graphe*
     vector des villes
