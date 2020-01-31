@@ -52,3 +52,39 @@ Individu*& Population::selection_rang()
         }
     }
 }
+
+/////////////////////////////////// SELECTION PAR TOURNOI /////////////////////////////////////////////////
+
+Population Population::selection_tournoi(const double proba)
+{
+    Individu*** paire_ind ;
+    // Initialisation des n paires de n individus d'une population
+    paire_ind = new Individu** [taillePopulation] ;
+
+    srand(time(NULL));
+    for (int i=0; i<taillePopulation ; i++)
+    {
+        paire_ind[i] = new Individu*[2] ;
+        paire_ind[i][1] = popu[i] ;
+        paire_ind[i][2] = popu[rand_0_n(taillePopulation)] ;
+    }
+
+    // Parcours des paires et sélection
+    for (int i=0; i<taillePopulation ;i++)
+    {
+        // Meilleur fonction d'adaptation
+        int best ;
+        if (paire_ind[i][1]->adaptation() > paire_ind[i][2]->adaptation())
+            best = 1 ;
+        else
+            best = 2 ;
+
+        // Choix du meilleur
+        double prb = reel_rand(0,1) ;
+        if (prb < proba)
+            popu[i] = paire_ind[i][best] ;
+    }
+
+    return (*this) ;
+}
+
