@@ -63,12 +63,11 @@ Chemin* crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
 
 inline ostream & operator <<(ostream & out, const Chemin &C)
 {
-    out<<"(";
     for (unsigned short int i=0;i<(unsigned short)((C.villes).size()-1);i++)
     {
-        out<<C(i)<<",";
+        out<<C(i)+1<<" ";
     }
-    out<<C((C.villes).size()-1)<<")";
+    out<<C((C.villes).size()-1)+1;
     return out ;
 }
 
