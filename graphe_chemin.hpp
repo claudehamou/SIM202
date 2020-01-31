@@ -48,6 +48,7 @@ public :
     Chemin();
     Chemin(Graphe*);    //construction d'un chemin a partir d'un graphe
     Chemin & operator = (const Chemin &);       //constructeur par copie
+    ~Chemin();
 
     int operator()(int i) const {return villes.at(i);}; // ieme coordonnee en lecteur
     int& operator()(int i) {return villes.at(i);}; // ieme coordonnee en ecriture
@@ -57,7 +58,7 @@ public :
 
     double adaptation();    //calcule la fonction d'adaptation, ie le cout du chemin
     Chemin flip();      //procede a la mutation
-    Chemin init();      //donne un chemin initial qui prend le plus proche voisin
+    Chemin initialise_indiv();      //donne un chemin initial qui prend le plus proche voisin
 };
 
 Chemin* crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
