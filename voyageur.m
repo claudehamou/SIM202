@@ -36,12 +36,16 @@ end
 
 % Mettre dans un fichier la matrice des distances
 fid = fopen('Matrice_distance.txt','w') ;
+% On ajoute le nombre de villes sélectionnées
+fprintf(fid, '%d', nbr_villes) ;
+fprintf(fid, '\n') ;
 
+% Ecriture du fichier avec le graphe sous forme vecteur colonne
 for k=1:nbr_villes
     for i=1:nbr_villes
         fprintf(fid,'%4.3d  ',distance(k,i)) ;
-    end 
-    fprintf(fid,'\n') ;
+        fprintf(fid,'\n') ;
+    end     
 end 
 fclose(fid) ;
 
