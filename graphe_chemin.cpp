@@ -10,16 +10,16 @@ using namespace std;
 Graphe::Graphe(int dim)
 {
     nbvilles=dim;
-    distances= new double[dim^2];
-    for (int k=0;k<dim;k++) distances[k]=0;
+    distances= new double[dim*dim];
+    for (int k=0;k<dim*dim;k++) distances[k]=0;
 }
 
 Graphe & Graphe::operator=(const Graphe& G)
 {
     if (this==&G) return *this;
     nbvilles=G.nbvilles;
-    distances=new double [G.nbvilles^2];
-    for (int k=0;k<((G.nbvilles)^2);k++) distances[k]=G.distances[k];
+    distances=new double [(G.nbvilles)*(G.nbvilles)];
+    for (int k=0;k<((G.nbvilles)*(G.nbvilles));k++) distances[k]=G.distances[k];
     return *this;
 }
 
@@ -77,7 +77,7 @@ Chemin* crossover(Chemin C1,Chemin C2)
     }
     int cd=0;
     int dd=0;
-    for (int k=l+1;k<C.villes.size();k++)
+    for (unsigned short int k=l+1;k<(unsigned short)(C.villes.size());k++)
     {
         int d2=0;
         int d3=0;
@@ -107,11 +107,11 @@ Chemin* crossover(Chemin C1,Chemin C2)
     while (cd!=0)
     {
         int rep=0;
-        int i=0;
+        unsigned short int i=0;
         while(rep==0) //reperer les indices de villes qui ne sont pas dans C
         {
-            int k=0;
-            while (C.villes.at(k)!=i && k<C.villes.size()-cd)
+            unsigned short int k=0;
+            while ((unsigned short)(C.villes.at(k))!=i && k<(unsigned short)(C.villes.size()-cd))
             {
                 k++;
             }
@@ -127,12 +127,12 @@ Chemin* crossover(Chemin C1,Chemin C2)
         int i=0;
         while(rep==0) //reperer les indices de villes qui ne sont pas dans C
         {
-            int k=0;
+            unsigned short int k=0;
             while (D.villes.at(k)!=i && k<D.villes.size()-dd)
             {
                 k++;
             }
-            if (k==D.villes.size()-dd) {rep++;}
+            if (k==(unsigned short)(D.villes.size()-dd)) {rep++;}
             i++;
         }
         D.villes[D.villes.size()-dd]=i-1;    //ajouter les villes non remplies
@@ -161,3 +161,36 @@ Chemin Chemin::flip()
     return *this;
 }
 
+Chemin Chemin::init()
+{
+    Chemin C = Chemin(graphe);
+    int n=villes.size();
+    int d;
+    double m;
+    int t;
+    int k;
+    for (int i=0;i+1<n;i++)
+    {
+        m=100000;   //arbitraire : a changer eventuellement selon pb
+        for (int j=0;j<n;j++)
+        {
+            if ((graphe->distances[n*C.villes.at(i)+j]!=-1) & (graphe->distances[n*C.villes.at(i)+j]<m))
+            {
+                t=0;
+                k=0;
+                while((t==0) & (k<i+1))
+                {
+                    if (C(k)==j) t=1;
+                    k++;
+                }
+                if (t==0)
+                {
+                    m=graphe->distances[n*C.villes.at(i)+j];
+                    d=j;
+                }
+            }
+        }
+        C(i+1)=d;
+    }
+    return C;
+}

@@ -55,7 +55,8 @@ public :
     friend ostream & operator <<(ostream &, const Chemin&);
 
     double adaptation();    //calcule la fonction d'adaptation, ie le cout du chemin
-    Chemin flip();    //procede a la mutation
+    Chemin flip();      //procede a la mutation
+    Chemin init();      //donne un chemin initial qui prend le plus proche voisin
 };
 
 Chemin* crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
@@ -63,7 +64,7 @@ Chemin* crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
 inline ostream & operator <<(ostream & out, const Chemin &C)
 {
     out<<"(";
-    for (int i=0;i<(C.villes).size()-1;i++)
+    for (unsigned short int i=0;i<(unsigned short)((C.villes).size()-1);i++)
     {
         out<<C(i)<<",";
     }
