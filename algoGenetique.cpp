@@ -87,6 +87,12 @@ Population Population::selection_tournoi(const double proba)
         double prb = reel_rand(0,1) ;
         if (prb < proba)
             popu[i] = paire_ind[i][best] ;
+        else
+            // Cas où le meilleur vaut 2
+            {if (best-2==0)    
+                {popu[i] = paire_ind[i][1] ;}
+            else
+                {popu[i] = paire_ind[i][2] ;}}
     }
 
     return (*this) ;
