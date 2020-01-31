@@ -12,47 +12,51 @@ double reel_rand(double a, double b) // genere un nombre random entre a et b (re
     return (rand()/(double)RAND_MAX) * (b-a) + a;
 }
 
-Individu*& Population::selection_roulette()
+Individu* Population::selection_roulette()
 {
     srand(time(NULL));
     double S = 0;
     vector<Individu*>::iterator it=popu.begin();
     for(;it!=popu.end();it++)
     {
-        S+=(*it).adaptation();
+        S+=(*it)->adaptation();
     }
     double r = reel_rand(0,S);
     double S_aux = 0;
     vector<Individu*>::iterator it2=popu.begin();
     while (S_aux < r || it2!=popu.end())
     {
-        S_aux+=(*it2).adaptation();
+        S_aux+=(*it2)->adaptation();
         it2++;
     }
-    return (*it2)
+    return (*it2);
 }
 
-Individu*& Population::selection_rang()
+Individu* Population::selection_rang()
 {
     int p = popu.size();
     int i = 0;
     int j = 0;
+    double* tableau = new double[p];
+    for (int k=0;k<p;k++) {tableau[k] = k+1;}
     vector<Individu*>::iterator it=popu.begin();
     for(;it!=popu.end();it++,i++)
     {
-        double adapt = (*it).adaptation();
+        double adapt = (*it)->adaptation();
         vector<Individu*>::iterator it2=it;
         for(;it2!=popu.end();it2++,j++)
         {
-            if ((*it2).adaptation() < adapt)
+            if ((*it2)->adaptation() < adapt)
             {
-                adapt = (*it2).adaptation();
-                popu.at(j)
+                adapt = (*it2)->adaptation();
+                int aux = tableau[j];
+                tableau[j] = tableau[i];
+                tableau[i] = aux;
             }
         }
     }
+    return (popu);
 }
-
 /////////////////////////////////// SELECTION PAR TOURNOI /////////////////////////////////////////////////
 
 Population Population::selection_tournoi(const double proba)
