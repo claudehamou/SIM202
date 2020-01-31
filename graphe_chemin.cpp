@@ -52,6 +52,15 @@ Chemin::Chemin(Graphe *G)
     for (int k=0;k<G->nbvilles;k++) {villes.at(k)=k;}  //initialisation au chemin dans l'ordre des indices des villes
 }
 
+Chemin & Chemin::operator = (const Chemin &C)
+{
+    graphe=C.graphe;
+    villes.resize(C.villes.size());
+    for (short unsigned int k=0;k<(short unsigned)(villes.size());k++)
+        villes.at(k)=C.villes.at(k);
+    return(*this);
+}
+
 double Chemin::adaptation()
 {
     double adapt=0;

@@ -47,6 +47,7 @@ public :
 
     Chemin();
     Chemin(Graphe*);    //construction d'un chemin a partir d'un graphe
+    Chemin & operator = (const Chemin &);       //constructeur par copie
 
     int operator()(int i) const {return villes.at(i);}; // ieme coordonnee en lecteur
     int& operator()(int i) {return villes.at(i);}; // ieme coordonnee en ecriture
