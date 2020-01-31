@@ -27,10 +27,9 @@ public :
 
     // fonctions de selection des reproducteurs
 
-    Individu*& selection_roulette();
-    Individu*& selection_rang();
+    Individu* selection_roulette();
+    Individu* selection_rang();
     Population selection_tournoi(const double proba) ;
-    Individu*& operator() ;
 };
 
 int rand_0_n(int n); // fonction pour generer un entier aleatoire de 0 a (n-1)
