@@ -61,40 +61,42 @@ Individu* Population::selection_rang()
 
 Population Population::selection_tournoi(const double proba)
 {
-    Individu*** paire_ind ;
+    Population enfant(taillePopulation) ;
+
+    list <pair<Individu*,Individu*> > pair_ind ;
     // Initialisation des n paires de n individus d'une population
-    paire_ind = new Individu** [taillePopulation] ;
 
     srand(time(NULL));
     for (int i=0; i<taillePopulation ; i++)
     {
-        paire_ind[i] = new Individu*[2] ;
-        paire_ind[i][1] = popu[i] ;
-        paire_ind[i][2] = popu[rand_0_n(taillePopulation)] ;
+       pair_ind.push_back(std::make_pair(popu[i],popu[rand_0_n(taillePopulation)])) ;
     }
 
     // Parcours des paires et sélection
-    for (int i=0; i<taillePopulation ;i++)
+    list <pair<Individu*,Individu*> > ::iterator itl=pair_ind.begin() ;
+    int i=0 ;
+    for (; itl != pair_ind.end(); ++itl, i++)
     {
         // Meilleur fonction d'adaptation
         int best ;
-        if (paire_ind[i][1]->adaptation() > paire_ind[i][2]->adaptation())
+        if ((itl->first)->adaptation() > (itl->second)->adaptation())
             best = 1 ;
         else
             best = 2 ;
 
         // Choix du meilleur
         double prb = reel_rand(0,1) ;
-        if (prb < proba)
-            popu[i] = paire_ind[i][best] ;
-        else
-            // Cas où le meilleur vaut 2
-            {if (best-2==0)    
-                {popu[i] = paire_ind[i][1] ;}
-            else
-                {popu[i] = paire_ind[i][2] ;}}
+        if ((prb < proba && best==1) || (prb > proba && best==2))
+            enfant.popu[i] = itl->first ;
+        if ((prb < proba && best==2) || (prb > proba && best==1))
+            enfant.popu[i] = itl->second ;
     }
 
-    return (*this) ;
+    return (enfant) ;
 }
 
+//////////////////////////// SELECTION FINALE QUE LES ENFANTS ///////////////////////
+Population Population::pop_finale_enfant(const Population parent, const Population enfant)
+{
+    return enfant ;
+}
