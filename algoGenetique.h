@@ -7,13 +7,13 @@ using namespace std;
 class Individu
 {
 public :
-    int rang; // attribut utile pour la selection par rang dans la classe Population
-
     virtual ~Individu() {}; // destructeur virtuel
 
-    virtual double & adaptation()=0; //fonction d'adaptation virtuelle pure a ecrire concretement dans la classe chemin
+    virtual double adaptation()=0; //fonction d'adaptation virtuelle pure a ecrire concretement dans la classe chemin
 
-    virtual Individu & initialise_population()=0; // fonction d'initialisation d'individu virtuelle pure
+    virtual flip() ;
+
+    virtual Individu* initialise_indiv()=0; // fonction d'initialisation d'individu virtuelle pure
 };
 
 class Population
