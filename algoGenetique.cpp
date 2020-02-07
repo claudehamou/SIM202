@@ -111,9 +111,9 @@ Population Population::selection_tournoi(const double proba)
         // Choix du meilleur
         double prb = reel_rand(0,1) ;
         if ((prb < proba && best==1) || (prb > proba && best==2))
-            enfant.popu[i] = itl->first ;
+            enfant.popu[i] = itl->first->clone() ;
         if ((prb < proba && best==2) || (prb > proba && best==1))
-            enfant.popu[i] = itl->second ;
+            enfant.popu[i] = itl->second->clone() ;
     }
 
     return (enfant) ;
