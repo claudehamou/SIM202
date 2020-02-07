@@ -27,8 +27,8 @@ public :
 
     // fonctions de selection des reproducteurs
 
-    Individu* selection_roulette();
-    Individu* selection_rang();
+    Population selection_roulette();
+    Population selection_rang();
     Population selection_tournoi(const double proba) ;
 };
 
