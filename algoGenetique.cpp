@@ -12,51 +12,72 @@ double reel_rand(double a, double b) // genere un nombre random entre a et b (re
     return (rand()/(double)RAND_MAX) * (b-a) + a;
 }
 
-Individu* Population::selection_roulette()
-{
-    srand(time(NULL));
-    double S = 0;
-    vector<Individu*>::iterator it=popu.begin();
-    for(;it!=popu.end();it++)
-    {
-        S+=(*it)->adaptation();
-    }
-    double r = reel_rand(0,S);
-    double S_aux = 0;
-    vector<Individu*>::iterator it2=popu.begin();
-    while (S_aux < r || it2!=popu.end())
-    {
-        S_aux+=(*it2)->adaptation();
-        it2++;
-    }
-    return (*it2);
-}
+/////////////////////////////////// SELECTION PAR ROULETTE /////////////////////////////////////////////////
 
-Individu* Population::selection_rang()
+Population Population::selection_roulette()
 {
     int p = popu.size();
-    int i = 0;
-    int j = 0;
-    double* tableau = new double[p];
-    for (int k=0;k<p;k++) {tableau[k] = k+1;}
-    vector<Individu*>::iterator it=popu.begin();
-    for(;it!=popu.end();it++,i++)
+    Population enfants(p);
+    int parcours = 0;
+    while (parcours < p)
     {
-        double adapt = (*it)->adaptation();
-        vector<Individu*>::iterator it2=it;
-        for(;it2!=popu.end();it2++,j++)
+        srand(time(NULL));
+        double S = 0;
+        vector<Individu*>::iterator it=popu.begin();
+        for(; it!=popu.end(); it++)
         {
-            if ((*it2)->adaptation() < adapt)
-            {
-                adapt = (*it2)->adaptation();
-                int aux = tableau[j];
-                tableau[j] = tableau[i];
-                tableau[i] = aux;
-            }
+            S+=(*it)->adaptation();
         }
+        double r = reel_rand(0,S);
+        double S_aux = 0;
+        vector<Individu*>::iterator it2=popu.begin();
+        while (S_aux < r || it2!=popu.end())
+        {
+            S_aux+=(*it2)->adaptation();
+            it2++;
+        }
+        enfants.popu.push_back(*it2);
+        parcours++;
     }
-    return (popu);
+    return (enfants);
 }
+
+/////////////////////////////////// SELECTION PAR RANG /////////////////////////////////////////////////
+
+Population Population::selection_rang()
+{
+    int p = popu.size();
+    Population enfants(p);
+    int parcours = 0;
+    while (parcours < p)
+    {
+        double S = 0;
+        int i = 0;
+        multimap <double, Individu*> tripop; // permet de trier
+        vector<Individu*>::iterator it=popu.begin();
+        for(; it!=popu.end(); it++)
+        {
+            tripop.insert(make_pair((*it)->adaptation(),*it));
+        }
+        for (int k=0; k<p; k++)
+        {
+            S+=k+1;
+        }
+        double r = reel_rand(0,S);
+        double S_aux = 0;
+        vector<Individu*>::iterator it2=popu.begin();
+        while (S_aux < r || it2!=popu.end())
+        {
+            S_aux+=i+1;
+            it2++;
+            i++;
+        }
+        enfants.popu.push_back(*it2);
+        parcours++;
+    }
+    return (enfants);
+}
+
 /////////////////////////////////// SELECTION PAR TOURNOI /////////////////////////////////////////////////
 
 Population Population::selection_tournoi(const double proba)
@@ -96,6 +117,7 @@ Population Population::selection_tournoi(const double proba)
 }
 
 //////////////////////////// SELECTION FINALE QUE LES ENFANTS ///////////////////////
+
 Population Population::pop_finale_enfant(const Population parent, const Population enfant)
 {
     return enfant ;
