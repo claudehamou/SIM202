@@ -153,7 +153,7 @@ Chemin* crossover(Chemin C1,Chemin C2)
     return K;
 }
 
-Chemin Chemin::flip()
+Chemin& Chemin::flip()
 {
     srand (time(NULL));
     int l = (rand() % (villes.size()-1))+1;
@@ -170,9 +170,9 @@ Chemin Chemin::flip()
     return *this;
 }
 
-Chemin Chemin::initialise_indiv()
+Chemin* Chemin::initialise_indiv()
 {
-    Chemin C = Chemin(graphe);
+    Chemin* C = new Chemin(graphe);
     int n=villes.size();
     int d;
     double m;
@@ -183,23 +183,23 @@ Chemin Chemin::initialise_indiv()
         m=100000;   //arbitraire : a changer eventuellement selon pb
         for (int j=0;j<n;j++)
         {
-            if ((graphe->distances[n*C.villes.at(i)+j]!=-1) & (graphe->distances[n*C.villes.at(i)+j]<m))
+            if ((graphe->distances[n*C->villes.at(i)+j]!=-1) & (graphe->distances[n*C->villes.at(i)+j]<m))
             {
                 t=0;
                 k=0;
                 while((t==0) & (k<i+1))
                 {
-                    if (C(k)==j) t=1;
+                    if ((*C)(k)==j) t=1;
                     k++;
                 }
                 if (t==0)
                 {
-                    m=graphe->distances[n*C.villes.at(i)+j];
+                    m=graphe->distances[n*C->villes.at(i)+j];
                     d=j;
                 }
             }
         }
-        C(i+1)=d;
+        (*C)(i+1)=d;
     }
     return C;
 }
