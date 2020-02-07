@@ -1,6 +1,9 @@
 #include "algoGenetique.h"
 #include <cstdlib>
 #include <ctime>
+#include <map>
+#include <list>
+#include <iostream>
 
 int rand_0_n(int n) // fonction qui genere un entier aleatoire entre 0 et n-1 inclus
 {
@@ -57,7 +60,7 @@ Population Population::selection_rang()
         vector<Individu*>::iterator it=popu.begin();
         for(; it!=popu.end(); it++)
         {
-            tripop.insert(make_pair((*it)->adaptation(),*it));
+            tripop.insert(make_pair(-((*it)->adaptation()),*it));
         }
         for (int k=0; k<p; k++)
         {
@@ -65,14 +68,14 @@ Population Population::selection_rang()
         }
         double r = reel_rand(0,S);
         double S_aux = 0;
-        vector<Individu*>::iterator it2=popu.begin();
-        while (S_aux < r || it2!=popu.end())
+        multimap <double, Individu*>::iterator it2=tripop.begin();
+        while (S_aux < r || it2!=tripop.end())
         {
             S_aux+=i+1;
             it2++;
             i++;
         }
-        enfants.popu.push_back(*it2);
+        enfants.popu.push_back(it2->second);
         parcours++;
     }
     return (enfants);
@@ -121,4 +124,52 @@ Population Population::selection_tournoi(const double proba)
 Population Population::pop_finale_enfant(const Population parent, const Population enfant)
 {
     return enfant ;
+}
+
+//////////////////////////// SELECTION FINALE ELITISME ///////////////////////
+
+Population pop_finale_elitisme(int q, const Population parent, const Population enfant)
+{
+    int p = parent.popu.size();
+    if (q > p || q < 0)
+    {
+        cout<<"Taille incompatible";
+        exit(-1);
+    }
+
+    Population Pop_finale(p);
+    multimap <double, Individu*> triParent; // permet de trier
+    multimap <double, Individu*> triEnfant;
+
+    vector<Individu*>::const_iterator it=parent.popu.begin();
+    for(;it!=parent.popu.end(); it++)
+    {
+        triParent.insert(make_pair(-((*it)->adaptation()),*it));
+    }
+
+    vector<Individu*>::const_iterator it2=enfant.popu.begin();
+    for(;it!=enfant.popu.end(); it2++)
+    {
+        triEnfant.insert(make_pair(-((*it2)->adaptation()),*it2));
+    }
+
+    int k = 0;
+    int j = 0;
+    multimap <double, Individu*>::iterator it3=triParent.begin();
+    while (k < q)
+    {
+        Pop_finale.popu.push_back(it3->second);
+        k++;
+        it3++;
+    }
+
+    multimap <double, Individu*>::iterator it4=triEnfant.begin();
+    while (j < p-q)
+    {
+        Pop_finale.popu.push_back(it4->second);
+        j++;
+        it3++;
+    }
+
+    return (Pop_finale);
 }
