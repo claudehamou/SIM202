@@ -61,11 +61,6 @@ Chemin & Chemin::operator = (const Chemin &C)
     return(*this);
 }
 
-Chemin::~Chemin()
-{
-    villes.clear();
-}
-
 double Chemin::adaptation()
 {
     double adapt=0;
