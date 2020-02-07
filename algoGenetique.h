@@ -11,7 +11,7 @@ public :
 
     virtual double adaptation()=0; //fonction d'adaptation virtuelle pure a ecrire concretement dans la classe chemin
 
-    virtual flip() ;
+    virtual Individu& flip()=0 ;
 
     virtual Individu* initialise_indiv()=0; // fonction d'initialisation d'individu virtuelle pure
 };
