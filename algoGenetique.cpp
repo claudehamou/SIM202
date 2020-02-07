@@ -39,7 +39,7 @@ Population Population::selection_roulette()
             S_aux+=(*it2)->adaptation();
             it2++;
         }
-        enfants.popu.push_back(*it2);
+        enfants.popu.push_back((*it2)->clone());
         parcours++;
     }
     return (enfants);
@@ -75,7 +75,7 @@ Population Population::selection_rang()
             it2++;
             i++;
         }
-        enfants.popu.push_back(it2->second);
+        enfants.popu.push_back(it2->second->clone());
         parcours++;
     }
     return (enfants);
