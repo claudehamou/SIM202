@@ -173,3 +173,56 @@ Population pop_finale_elitisme(int q, const Population parent, const Population 
 
     return (Pop_finale);
 }
+
+// ------------------------------------ FONCTION ALGO GENETIQUE -------------------------------------------
+Population algo_genetique(int iter, double proba, typeselection sel, typefinale fin, int taille, Individu* indiv0, int q)
+{
+    int borne=0 ;
+    indiv0 = indiv0->initialise_indiv() ;
+
+    // Generation de P_0
+    Population pop_0(taille) ;
+    for(int i=0 ; i<taille ; i++)
+    {
+        pop_0.popu.at(i) = indiv0 ;
+    }
+    pop_0.bestIndividu = indiv0 ;
+
+    //
+    while (borne < iter)
+    {
+        // Generation des reproducteurs
+        Population pop_tilde(taille) ;
+        if (sel == roulette)
+            pop_tilde = pop_tilde.selection_roulette() ;
+        if (sel == rang)
+            pop_tilde = pop_tilde.selection_rang() ;
+        if (sel == tournoi)
+            pop_tilde = pop_tilde.selection_tournoi(proba) ;
+
+        // Hybridation & mutation
+        Population pop_enfant(taille) ;
+        for (int i=0 ; i<taille ; i+=2)
+        {
+            //-----------HYBRIDATION---------------------
+            pair<Individu*,Individu*> cross_ ;
+            cross_ = pop_tilde.popu.at(i)->crossover(*pop_tilde.popu.at(i+1)) ;
+            pop_enfant.popu.at(i) = cross_.first ;
+            pop_enfant.popu.at(i+1) = cross_.second ;
+
+            //-----------MUTATION---------------------
+            pop_enfant.popu.at(i) = &pop_enfant.popu.at(i)->flip() ;
+            pop_enfant.popu.at(i+1) = &pop_enfant.popu.at(i+1)->flip() ;
+        }
+
+        //-------------------------SELECTION----------------------
+        Population new_pop(taille) ;
+        if (fin==elite)
+            new_pop = pop_finale_elitisme(q,pop_0,pop_enfant) ;
+        if (fin==enfant)
+            new_pop = pop_finale_enfants(pop_0,pop_enfant) ;
+
+    }
+    return pop_0 ;
+
+}
