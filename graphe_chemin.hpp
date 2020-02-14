@@ -61,7 +61,7 @@ public :
     Individu* clone(){return new Chemin(*this);}
 };
 
-Chemin* crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
+pair<Chemin*,Chemin*> crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
 
 inline ostream & operator <<(ostream & out, const Chemin &C)
 {
