@@ -128,7 +128,7 @@ Population pop_finale_enfant(const Population parent, const Population enfant)
 
 //////////////////////////// SELECTION FINALE ELITISME ///////////////////////
 
-Population pop_finale_elitisme(int q, const Population parent, const Population enfant)
+Population pop_finale_elitisme(int q, const Population &parent, const Population &enfant)
 {
     int p = parent.popu.size();
     if (q > p || q < 0)
@@ -170,6 +170,11 @@ Population pop_finale_elitisme(int q, const Population parent, const Population 
         j++;
         it3++;
     }
+    
+    if (triEnfant.begin()->first < triParent.begin()->first)
+        Pop_finale.bestIndividu = triEnfant.begin()->second;
+    else
+        Pop_finale.bestIndividu = triParent.begin()->second;
 
     return (Pop_finale);
 }
