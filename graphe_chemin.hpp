@@ -59,9 +59,9 @@ public :
     Chemin& flip();      //procede a la mutation
     Chemin* initialise_indiv();      //donne un chemin initial qui prend le plus proche voisin
     Individu* clone(){return new Chemin(*this);}
+    pair<Individu*,Individu*> crossover(const Individu& ind_2) ;
 };
 
-pair<Chemin*,Chemin*> crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
 
 inline ostream & operator <<(ostream & out, const Chemin &C)
 {
