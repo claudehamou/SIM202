@@ -37,8 +37,12 @@ public :
     Population selection_tournoi(const double proba) ;
 };
 
+// fonctions de choix de population finale (mix entre parents et enfants)
+
 Population pop_finale_enfants(const Population parent, const Population enfant);
 Population pop_finale_elitisme(int q, const Population parent, const Population enfant);
+
+// fonctions auxiliaires generation de nombre aleatoire
 
 int rand_0_n(int n); // fonction pour generer un entier aleatoire de 0 a (n-1)
 double reel_rand(double a, double b); // genere un nombre random entre a et b (reel)
