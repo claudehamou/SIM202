@@ -73,8 +73,9 @@ double Chemin::adaptation()
     return adapt;
 }
 
-pair<Chemin*,Chemin*> crossover(Chemin C1,Chemin C2)
+pair<Individu*,Individu*> Chemin::crossover(const Individu& i_1)
 {
+    const Chemin &C1 = static_cast<const Chemin&>(i_1) ;
     Chemin C(C1.graphe);
     Chemin D(C1.graphe);
     srand (time(NULL));
@@ -82,7 +83,7 @@ pair<Chemin*,Chemin*> crossover(Chemin C1,Chemin C2)
     for (int k=0;k<l+1;k++)
     {
         C.villes.at(k)=C1.villes.at(k);   //associer les l+1 premieres villes de C1 aux l+1 premieres villes de C
-        D.villes.at(k)=C2.villes.at(k);
+        D.villes.at(k)=villes.at(k);
     }
     int cd=0;
     int dd=0;
@@ -93,12 +94,12 @@ pair<Chemin*,Chemin*> crossover(Chemin C1,Chemin C2)
         int j=0;
         while (d2==0 && j<l+1)
         {
-            if (C2.villes.at(k)==C.villes.at(j)){d2++;}
+            if (villes.at(k)==C.villes.at(j)){d2++;}
             j++;
         }
         if (d2==0)
         {
-            C.villes.at(k-cd)=C2.villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
+            C.villes.at(k-cd)=villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
         }
         cd+=d2;
         j=0;
@@ -147,9 +148,9 @@ pair<Chemin*,Chemin*> crossover(Chemin C1,Chemin C2)
         D.villes[D.villes.size()-dd]=i-1;    //ajouter les villes non remplies
         dd--;
     }
-    pair<Chemin*,Chemin*> cross;
-    cross->first=&C;
-    cross->second=&D;
+    pair<Individu*,Individu*> cross;
+    cross.first=&C;
+    cross.second=&D;
     return cross;
 }
 
