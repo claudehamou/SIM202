@@ -41,7 +41,7 @@ public :
 
 // fonctions de choix de population finale (mix entre parents et enfants)
 
-Population pop_finale_enfants(const Population &parent, const Population &enfant);
+Population& pop_finale_enfants(Population &enfant) ;
 Population pop_finale_elitisme(int q, const Population &parent, const Population &enfant);
 
 // fonctions auxiliaires generation de nombre aleatoire
