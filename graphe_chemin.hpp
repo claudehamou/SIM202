@@ -58,6 +58,7 @@ public :
     double adaptation();    //calcule la fonction d'adaptation, ie le cout du chemin
     Chemin& flip();      //procede a la mutation
     Chemin* initialise_indiv();      //donne un chemin initial qui prend le plus proche voisin
+    Individu* clone(){return new Chemin(*this);}
 };
 
 Chemin* crossover(Chemin,Chemin);   //procede a l'hybridation de deux chemins
