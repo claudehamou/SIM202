@@ -121,7 +121,7 @@ Population Population::selection_tournoi(const double proba)
 
 //////////////////////////// SELECTION FINALE QUE LES ENFANTS ///////////////////////
 
-Population pop_finale_enfant(const Population parent, const Population enfant)
+Population pop_finale_enfant(const Population &parent, const Population &enfant)
 {
     return enfant ;
 }
