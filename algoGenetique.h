@@ -14,6 +14,8 @@ public :
     virtual Individu& flip()=0 ;
 
     virtual Individu* initialise_indiv()=0; // fonction d'initialisation d'individu virtuelle pure
+    
+    virtual Individu* clone()=0 ;   // fonction clone
 };
 
 class Population
