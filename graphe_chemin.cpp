@@ -73,7 +73,7 @@ double Chemin::adaptation()
     return adapt;
 }
 
-Chemin* crossover(Chemin C1,Chemin C2)
+pair<Chemin*,Chemin*> crossover(Chemin C1,Chemin C2)
 {
     Chemin C(C1.graphe);
     Chemin D(C1.graphe);
@@ -147,10 +147,10 @@ Chemin* crossover(Chemin C1,Chemin C2)
         D.villes[D.villes.size()-dd]=i-1;    //ajouter les villes non remplies
         dd--;
     }
-    Chemin* K=new Chemin[2];
-    K[0]=C;
-    K[1]=D;
-    return K;
+    pair<Chemin*,Chemin*> cross;
+    cross->first=&C;
+    cross->second=&D;
+    return cross;
 }
 
 Chemin& Chemin::flip()
