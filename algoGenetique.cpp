@@ -121,8 +121,18 @@ Population Population::selection_tournoi(const double proba)
 
 //////////////////////////// SELECTION FINALE QUE LES ENFANTS ///////////////////////
 
-Population pop_finale_enfant(const Population &parent, const Population &enfant)
+Population& pop_finale_enfants(Population &enfant)
 {
+    std::vector<Individu*>::iterator it=enfant.popu.begin() ;
+    double best=0 ;
+
+    for (;it!=enfant.popu.end();it++)
+        {
+            double best_i = (*it)->adaptation() ;
+            if (best_i > best)
+                enfant.bestIndividu = (*it) ;
+                best = best_i ;
+        }
     return enfant ;
 }
 
