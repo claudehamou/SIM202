@@ -34,6 +34,7 @@ public :
     vector<Individu*> popu;
 
     Population(int p) {taillePopulation = p;popu.resize(p);}; // constructeur par defaut
+    Population(const Population& pop); // constructeur par copie
     ~Population()                              // destructeur
     {for (int i=0 ; i<taillePopulation ; i++)
         delete popu[i] ;} ;
@@ -43,6 +44,10 @@ public :
     Population selection_roulette();
     Population selection_rang();
     Population selection_tournoi(const double proba) ;
+    
+    // operateur surcharge
+    
+    Population& operator=(const Population& pop);
 };
 
 // fonctions de choix de population finale (mix entre parents et enfants)
