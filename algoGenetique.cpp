@@ -69,14 +69,14 @@ Population Population::selection_rang()
         double r = reel_rand(0,S);
         double S_aux = 0;
         multimap <double, Individu*>::iterator it2=tripop.begin();
-        while (S_aux < r || it2!=tripop.end())
+         while (S_aux < r && it2!=tripop.end())
         {
             S_aux+=i+1;
             it2++;
             i++;
         }
-        enfants.popu.push_back(it2->second->clone());
-        parcours++;
+        enfants.popu.at(parcours)=it2->second->clone(); // PROblème ici
+        parcours++ ;
     }
     return (enfants);
 }
