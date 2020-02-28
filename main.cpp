@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string.h>
 #include "graphe.hpp"
+#include "algoGenetique.h"
 using namespace std;
 
 int main()
