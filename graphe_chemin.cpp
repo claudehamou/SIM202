@@ -76,41 +76,41 @@ double Chemin::adaptation()
 pair<Individu*,Individu*> Chemin::crossover(const Individu& i_1)
 {
     const Chemin &C1 = static_cast<const Chemin&>(i_1) ;
-    Chemin C(C1.graphe);
-    Chemin D(C1.graphe);
+    Chemin* C=new Chemin(C1.graphe);
+    Chemin* D=new Chemin(C1.graphe);
     srand (time(NULL));
-    int l = rand() % (C.villes.size()-1);
+    int l = rand() % (C->villes.size()-1);
     for (int k=0;k<l+1;k++)
     {
-        C.villes.at(k)=C1.villes.at(k);   //associer les l+1 premieres villes de C1 aux l+1 premieres villes de C
-        D.villes.at(k)=villes.at(k);
+        C->villes.at(k)=C1.villes.at(k);   //associer les l+1 premieres villes de C1 aux l+1 premieres villes de C
+        D->villes.at(k)=villes.at(k);
     }
     int cd=0;
     int dd=0;
-    for (unsigned short int k=l+1;k<(unsigned short)(C.villes.size());k++)
+    for (unsigned short int k=l+1;k<(unsigned short)(C->villes.size());k++)
     {
         int d2=0;
         int d3=0;
         int j=0;
         while (d2==0 && j<l+1)
         {
-            if (villes.at(k)==C.villes.at(j)){d2++;}
+            if (villes.at(k)==C->villes.at(j)){d2++;}
             j++;
         }
         if (d2==0)
         {
-            C.villes.at(k-cd)=villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
+            C->villes.at(k-cd)=villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
         }
         cd+=d2;
         j=0;
         while (d3==0 && j<l+1)
         {
-            if (C1.villes.at(k)==D.villes.at(j)){d3++;}
+            if (C1.villes.at(k)==D->villes.at(j)){d3++;}
             j++;
         }
         if (d3==0)
         {
-            D.villes.at(k-dd)=C1.villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
+            D->villes.at(k-dd)=C1.villes.at(k); //remplir les villes restantes de C2 en plus si pas deja dans C
         }
         dd+=d3;
     }
@@ -121,14 +121,14 @@ pair<Individu*,Individu*> Chemin::crossover(const Individu& i_1)
         while(rep==0) //reperer les indices de villes qui ne sont pas dans C
         {
             unsigned short int k=0;
-            while ((unsigned short)(C.villes.at(k))!=i && k<(unsigned short)(C.villes.size()-cd))
+            while ((unsigned short)(C->villes.at(k))!=i && k<(unsigned short)(C->villes.size()-cd))
             {
                 k++;
             }
-            if (k==C.villes.size()-cd) {rep++;}
+            if (k==C->villes.size()-cd) {rep++;}
             i++;
         }
-        C.villes[C.villes.size()-cd]=i-1;    //ajouter les villes non remplies
+        C->villes[C->villes.size()-cd]=i-1;    //ajouter les villes non remplies
         cd--;
     }
     while (dd!=0)
@@ -138,19 +138,19 @@ pair<Individu*,Individu*> Chemin::crossover(const Individu& i_1)
         while(rep==0) //reperer les indices de villes qui ne sont pas dans C
         {
             unsigned short int k=0;
-            while (D.villes.at(k)!=i && k<D.villes.size()-dd)
+            while (D->villes.at(k)!=i && k<D->villes.size()-dd)
             {
                 k++;
             }
-            if (k==(unsigned short)(D.villes.size()-dd)) {rep++;}
+            if (k==(unsigned short)(D->villes.size()-dd)) {rep++;}
             i++;
         }
-        D.villes[D.villes.size()-dd]=i-1;    //ajouter les villes non remplies
+        D->villes[D->villes.size()-dd]=i-1;    //ajouter les villes non remplies
         dd--;
     }
     pair<Individu*,Individu*> cross;
-    cross.first=&C;
-    cross.second=&D;
+    cross.first=C;
+    cross.second=D;
     return cross;
 }
 
