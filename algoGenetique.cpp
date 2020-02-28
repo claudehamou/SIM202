@@ -64,8 +64,11 @@ Population Population::selection_roulette()
             S_aux+=(*it2)->adaptation();
             it2++;
         }
-        //(*it2)->clone()->print(cout) ;
-        enfants.popu.at(parcours)=(*it2)->clone();
+        if (it2==popu.end())
+            enfants.popu.at(parcours)=(*popu.rbegin())->clone();
+        else
+            enfants.popu.at(parcours)=(*it2)->clone();
+        parcours++;
     }
     return (enfants);
 }
