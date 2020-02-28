@@ -15,6 +15,31 @@ double reel_rand(double a, double b) // genere un nombre random entre a et b (re
     return (rand()/(double)RAND_MAX) * (b-a) + a;
 }
 
+// OPERATEUR = ET CONSTRUCTEUR PAR COPIE
+
+Population::Population(const Population& pop)
+{
+    taillePopulation=pop.taillePopulation;
+     popu.resize(pop.taillePopulation);
+     for (int i=0;i<taillePopulation;i++)
+     {
+         popu[i]=pop.popu[i]->clone();
+     };
+}
+
+Population& Population::operator=(const Population& pop)
+{
+     clean();
+     taillePopulation=pop.taillePopulation;
+     popu.resize(pop.taillePopulation);
+     for (int i=0;i<taillePopulation;i++)
+     {
+         popu[i]=pop.popu[i]->clone();
+     }
+     return(*this);
+
+}
+
 /////////////////////////////////// SELECTION PAR ROULETTE /////////////////////////////////////////////////
 
 Population Population::selection_roulette()
