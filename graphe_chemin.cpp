@@ -204,3 +204,8 @@ Chemin* Chemin::initialise_indiv()
     }
     return C;
 }
+
+void Chemin::print(ostream& out)const
+{
+    out << (*this) ;
+}
