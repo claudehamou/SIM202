@@ -34,13 +34,13 @@ Population Population::selection_roulette()
         double r = reel_rand(0,S);
         double S_aux = 0;
         vector<Individu*>::iterator it2=popu.begin();
-        while (S_aux < r || it2!=popu.end())
+        while (S_aux < r && it2!=popu.end())
         {
             S_aux+=(*it2)->adaptation();
             it2++;
         }
-        enfants.popu.push_back((*it2)->clone());
-        parcours++;
+        //(*it2)->clone()->print(cout) ;
+        enfants.popu.at(parcours)=(*it2)->clone();
     }
     return (enfants);
 }
