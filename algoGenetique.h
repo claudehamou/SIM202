@@ -3,6 +3,8 @@
 
 using namespace std;
 #include <vector>
+enum typeselection{roulette,rang,tournoi};
+enum typefinale{elite,enfant};
 
 class Individu
 {
