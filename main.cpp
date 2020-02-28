@@ -15,15 +15,15 @@ int main()
     int nbr ;
     int i=0 ;
 
-    getline(mon_graphe,ligne) ;      // Récupère la ligne avec le nombre de villes
-    nbr = atoi(ligne.c_str()) ;      // Récupère et converti le nombre de villes en int
+    getline(mon_graphe,ligne) ;      // RÃ©cupÃ¨re la ligne avec le nombre de villes
+    nbr = atoi(ligne.c_str()) ;      // RÃ©cupÃ¨re et converti le nombre de villes en int
     Graphe mes_villes(nbr) ;
 
     if(mon_graphe)
     {
         while (getline(mon_graphe,ligne))       // Lecture de chaque ligne
         {
-            distance = atof(ligne.c_str()) ;        // Conversion du caractère en double
+            distance = atof(ligne.c_str()) ;        // Conversion du caractÃ¨re en double
             mes_villes.distances[i] = distance ;    // Initialisation du graphe
             i++ ;
         }
@@ -36,12 +36,14 @@ int main()
     }
 
     ///////////////////////////////// ALGORITHME GENETIQUE ///////////////////////////////////////////////
+    Chemin chemin_0(&mes_villes);
+    Individu* result=algo_genetique(10, 0.6, roulette, elite, nbr, &chemin_0, 3) ;
 
     ///////////////////////// ECRITURE D'UN FICHIER RENVOYANT LE CHEMIN OPTIMAL /////////////////////////
 
     ofstream mon_chemin("E:/ENSTA/2A/SIM/202/Chemin.txt") ;
 
-    Chemin finalite(&mes_villes) ;
+    Chemin& finalite = static_cast<Chemin&>(*result) ;
 
     if (mon_chemin)
     {
@@ -49,7 +51,7 @@ int main()
     }
     else
     {
-        cout << "ERREUR: Impossible d'ouvrir le fichier en écriture." << endl;
+        cout << "ERREUR: Impossible d'ouvrir le fichier en Ã©criture." << endl;
     }
     return 0 ;
 }
