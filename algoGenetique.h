@@ -3,6 +3,8 @@
 
 using namespace std;
 #include <vector>
+#include <iostream>
+
 enum typeselection{roulette,rang,tournoi};
 enum typefinale{elite,enfant};
 
