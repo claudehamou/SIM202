@@ -20,6 +20,8 @@ public :
     virtual Individu* clone()=0 ;   // fonction clone
     
     virtual pair<Individu*,Individu*> crossover(const Individu& ind_2)=0 ;
+    
+    virtual void print(ostream&) const =0;
 };
 
 class Population
