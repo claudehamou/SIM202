@@ -34,7 +34,7 @@ public :
     Population(int p) {taillePopulation = p;popu.resize(p);}; // constructeur par defaut
     ~Population()                              // destructeur
     {for (int i=0 ; i<taillePopulation ; i++)
-        delete [] popu[i] ;} ;
+        delete popu[i] ;} ;
 
     // fonctions de selection des reproducteurs
 
