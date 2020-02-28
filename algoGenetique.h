@@ -34,10 +34,9 @@ public :
     vector<Individu*> popu;
 
     Population(int p) {taillePopulation = p;popu.resize(p);}; // constructeur par defaut
-    Population(const Population& pop); // constructeur par copie
-    ~Population()                              // destructeur
-    {for (int i=0 ; i<taillePopulation ; i++)
-        delete popu[i] ;} ;
+    Population(const Population& pop);
+    void clean() {for (int i=0 ; i<taillePopulation ; i++) delete popu[i] ;} ;
+    ~Population(){clean();}                              // destructeur
 
     // fonctions de selection des reproducteurs
 
