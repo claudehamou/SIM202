@@ -52,7 +52,7 @@ public :
     int operator()(int i) const {return villes.at(i);}; // ieme coordonnee en lecteur
     int& operator()(int i) {return villes.at(i);}; // ieme coordonnee en ecriture
 
-
+    void print(ostream&)const ;
     friend ostream & operator <<(ostream &, const Chemin&);
 
     double adaptation();    //calcule la fonction d'adaptation, ie le cout du chemin
