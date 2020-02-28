@@ -209,12 +209,12 @@ Population algo_genetique(int iter, double proba, typeselection sel, typefinale 
     {
         // Generation des reproducteurs
         Population pop_tilde(taille) ;
-        if (sel == roulette)
-            pop_tilde = pop_tilde.selection_roulette() ;
+      if (sel == roulette)
+            pop_tilde = pop_0.selection_roulette() ;
         if (sel == rang)
-            pop_tilde = pop_tilde.selection_rang() ;
+            pop_tilde = pop_0.selection_rang() ;
         if (sel == tournoi)
-            pop_tilde = pop_tilde.selection_tournoi(proba) ;
+            pop_tilde = pop_0.selection_tournoi(proba) ;
 
         // Hybridation & mutation
         Population pop_enfant(taille) ;
