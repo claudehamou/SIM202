@@ -141,7 +141,7 @@ Population Population::selection_tournoi(const double proba)
     {
         // Meilleur fonction d'adaptation
         int best ;
-        if ((itl->first)->adaptation() > (itl->second)->adaptation())
+        if ((itl->first)->adaptation() < (itl->second)->adaptation())
             best = 1 ;
         else
             best = 2 ;
@@ -168,7 +168,7 @@ Population& pop_finale_enfants(const Population &parent, Population &enfant)
     for (;it!=enfant.popu.end();it++)
         {
             double best_i = (*it)->adaptation() ;
-            if (best_i > best)
+            if (best_i < best)
                 enfant.bestIndividu = (*it) ;
                 best = best_i ;
         }
