@@ -78,7 +78,6 @@ pair<Individu*,Individu*> Chemin::crossover(const Individu& i_1)
     const Chemin &C1 = static_cast<const Chemin&>(i_1) ;
     Chemin* C=new Chemin(C1.graphe);
     Chemin* D=new Chemin(C1.graphe);
-    srand (time(NULL));
     int l = rand() % (C->villes.size()-1);
     for (int k=0;k<l+1;k++)
     {
@@ -156,10 +155,8 @@ pair<Individu*,Individu*> Chemin::crossover(const Individu& i_1)
 
 Chemin& Chemin::flip()
 {
-    srand (time(NULL));
     int l = (rand() % (villes.size()-1))+1;
     int k = rand() % (villes.size()-1);
-    cout<<l<<" "<<k<<endl;
     int ck=villes.at(k);
     int ck2=villes.at(k+1);
     int cl=villes.at(l);
