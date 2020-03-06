@@ -272,6 +272,16 @@ Population algo_genetique(int iter, double proba, typeselection sel, typefinale 
         if (fin==enfant)
             new_pop = pop_finale_enfants(pop_0,pop_enfant) ;
 
+        if (pop_0.bestIndividu->adaptation()>new_pop.bestIndividu->adaptation())  //on veut garder la plus basse fonction d'adaptation
+        {
+            pop_0 = new_pop ;
+            borne = 0;
+        }
+        else
+        {
+            borne+=1;
+        }
+
     }
     return pop_0 ;
 
