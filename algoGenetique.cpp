@@ -52,7 +52,6 @@ Population Population::selection_roulette()
     int parcours = 0;
     while (parcours < p)
     {
-        srand(time(NULL));
         double S = 0;
         vector<Individu*>::iterator it=popu.begin();
         for(; it!=popu.end(); it++)
@@ -83,31 +82,35 @@ Population Population::selection_rang()
     int p = popu.size();
     Population enfants(p);
     int parcours = 0;
+    double S=p*(p+1)/2 ;       //Somme de tous les rangs (de 1 a p)
     while (parcours < p)
     {
-        double S = 0;
         int i = 0;
         multimap <double, Individu*> tripop; // permet de trier
         vector<Individu*>::iterator it=popu.begin();
         for(; it!=popu.end(); it++)
         {
             tripop.insert(make_pair(-((*it)->adaptation()),*it));
+            cout << (*it)->adaptation() << endl;        // IL Y PASSE n CARRE FOIS
         }
-        for (int k=0; k<p; k++)
-        {
-            S+=k+1;
-        }
-        double r = reel_rand(0,S);
+        double r = reel_rand(0,S);      //rang limite r selectionne entre 0 et S
         double S_aux = 0;
         multimap <double, Individu*>::iterator it2=tripop.begin();
-         while (S_aux < r && it2!=tripop.end())
+        while (S_aux < r && it2!=tripop.end())
         {
             S_aux+=i+1;
             it2++;
             i++;
         }
-        enfants.popu.at(parcours)=it2->second->clone(); // PROblème ici
-        parcours++ ;
+        if (it2==tripop.end())
+        {
+            enfants.popu.at(parcours)=tripop.rbegin()->second->clone();
+        }
+        else
+        {
+            enfants.popu.at(parcours)=it2->second->clone();     //it2->second est l'Individu* de la multimap au "rang" it
+        }
+        parcours++;
     }
     return (enfants);
 }
@@ -121,7 +124,6 @@ Population Population::selection_tournoi(const double proba)
     list <pair<Individu*,Individu*> > pair_ind ;
     // Initialisation des n paires de n individus d'une population
 
-    srand(time(NULL));
     for (int i=0; i<taillePopulation ; i++)
     {
        pair_ind.push_back(std::make_pair(popu[i],popu[rand_0_n(taillePopulation)])) ;
@@ -224,6 +226,7 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
 // ------------------------------------ FONCTION ALGO GENETIQUE -------------------------------------------
 Population algo_genetique(int iter, double proba, typeselection sel, typefinale fin, int taille, Individu* indiv0, int q)
 {
+    srand(time(NULL));
     int borne=0 ;
     indiv0 = indiv0->initialise_indiv() ;
 
