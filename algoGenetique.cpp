@@ -25,6 +25,7 @@ Population::Population(const Population& pop)
      {
          popu[i]=pop.popu[i]->clone();
      };
+    bestIndividu=pop.bestIndividu ;
 }
 
 Population& Population::operator=(const Population& pop)
@@ -39,7 +40,11 @@ Population& Population::operator=(const Population& pop)
          else
             popu[i]=pop.popu[i]->clone();
      }
-     return(*this);
+    if (bestIndividu!=0)
+        bestIndividu=pop.bestIndividu ;
+    else
+        bestIndividu=0 ;
+    return(*this);
 
 }
 
@@ -202,7 +207,7 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
     multimap <double, Individu*>::iterator it3=triParent.begin();
     while (k < q)
     {
-        Pop_finale.popu.push_back(it3->second);
+        Pop_finale.popu.at(k)=it3->second->clone;
         k++;
         it3++;
     }
@@ -210,15 +215,15 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
     multimap <double, Individu*>::iterator it4=triEnfant.begin();
     while (j < p-q)
     {
-        Pop_finale.popu.push_back(it4->second);
+        Pop_finale.popu.at(j+q)=it4->second;
         j++;
         it3++;
     }
     
     if (triEnfant.begin()->first < triParent.begin()->first)
-        Pop_finale.bestIndividu = triEnfant.begin()->second;
+        Pop_finale.bestIndividu = triEnfant.begin()->second->clone;
     else
-        Pop_finale.bestIndividu = triParent.begin()->second;
+        Pop_finale.bestIndividu = triParent.begin()->second->clone;
 
     return (Pop_finale);
 }
@@ -234,9 +239,9 @@ Population algo_genetique(int iter, double proba, typeselection sel, typefinale 
     Population pop_0(taille) ;
     for(int i=0 ; i<taille ; i++)
     {
-        pop_0.popu.at(i) = indiv0 ;
+        pop_0.popu.at(i) = indiv0->clone() ;
     }
-    pop_0.bestIndividu = indiv0 ;
+    pop_0.bestIndividu = indiv0->clone() ;
 
     //
     while (borne < iter)
