@@ -182,7 +182,7 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
     int p = parent.popu.size();
     if (q > p || q < 0)
     {
-        cout<<"Taille incompatible";
+        cout<<"Taille incompatible: q>p ou q<0";
         exit(-1);
     }
 
