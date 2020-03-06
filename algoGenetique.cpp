@@ -34,7 +34,10 @@ Population& Population::operator=(const Population& pop)
      popu.resize(pop.taillePopulation);
      for (int i=0;i<taillePopulation;i++)
      {
-         popu[i]=pop.popu[i]->clone();
+         if (pop.popu[i]==0)
+            popu[i] = 0 ;
+         else
+            popu[i]=pop.popu[i]->clone();
      }
      return(*this);
 
