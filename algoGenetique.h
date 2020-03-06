@@ -33,7 +33,7 @@ public :
     Individu* bestIndividu;
     vector<Individu*> popu;
 
-    Population(int p) {taillePopulation = p;popu.resize(p);}; // constructeur par defaut
+    Population(int p) {taillePopulation = p;popu.resize(p);bestIndividu=0;}; // constructeur par defaut
     Population(const Population& pop);
     void clean() {for (int i=0 ; i<taillePopulation ; i++) delete popu[i] ;} ;
     ~Population(){clean();}                              // destructeur
