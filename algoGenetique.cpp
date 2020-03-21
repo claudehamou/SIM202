@@ -234,7 +234,10 @@ Population algo_genetique(int iter, double proba, typeselection sel, typefinale 
     srand(time(NULL));
     int borne=0 ;
     indiv0 = indiv0->initialise_indiv() ;
-
+    
+    if (taille%2!=0)
+        taille+=1 ;
+    
     // Generation de P_0
     Population pop_0(taille) ;
     for(int i=0 ; i<taille ; i++)
