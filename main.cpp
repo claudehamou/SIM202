@@ -38,7 +38,10 @@ int main()
 
     ///////////////////////////////// ALGORITHME GENETIQUE ///////////////////////////////////////////////
     Chemin chemin_0(&mes_villes);
-    Individu* result=algo_genetique(10, 0.6, roulette, elite, nbr, &chemin_0, 3) ;
+    double proba = 0.4 ;
+    int iter = 6000 ;
+    int q = 3 ;
+    Individu* result=algo_genetique(iter, proba, roulette, elite, nbr, &chemin_0, q) ;
 
     ///////////////////////// ECRITURE D'UN FICHIER RENVOYANT LE CHEMIN OPTIMAL /////////////////////////
 
