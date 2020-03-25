@@ -193,13 +193,13 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
     vector<Individu*>::const_iterator it=parent.popu.begin();
     for(;it!=parent.popu.end(); it++)
     {
-        triParent.insert(make_pair(-((*it)->adaptation()),*it));
+        triParent.insert(make_pair(((*it)->adaptation()),*it));
     }
 
     vector<Individu*>::const_iterator it2=enfant.popu.begin();
     for(;it!=enfant.popu.end(); it2++)
     {
-        triEnfant.insert(make_pair(-((*it2)->adaptation()),*it2));
+        triEnfant.insert(make_pair(((*it2)->adaptation()),*it2));
     }
 
     int k = 0;
