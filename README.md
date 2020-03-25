@@ -2,7 +2,7 @@
 
 1) Ouvrir le fichier "main.cpp" 
 
-2) Modifier les lignes 10 et 52 en rentrant le chemin vers les fichiers "Matrice_distance.txt" et "Chemin.txt" :
+2) Modifier les lignes 12 et 48 en rentrant le chemin vers les fichiers "Matrice_distance.txt" et "Chemin.txt" :
       - ifstream mon_graphe("..../Matrice_distance.txt",ios::in) ;
       - ofstream mon_chemin("..../Chemin.txt") ;
       
@@ -12,7 +12,7 @@
 
 5) Ouvrir les fichiers "graphe_chemin.hpp", "graphe_chemin.cpp", "algoGenetique.h" et "algoGenetique.cpp"
 
-6) Modifier les variables des lignes 40 à 42 selon les tests que vous souhaitez effectuer.
+6) Modifier les variables des lignes 41 à 43 selon les tests que vous souhaitez effectuer.
 
 7) Modifier les fonctions ligne 44 : "algo_genetique(iter, proba, ... , ..., nbr, &chemin_0, q)"
       - Dans le premier trou choisir entre rang, tournoi ou roulette
