@@ -3,9 +3,9 @@ function [] = affiche_chemin(chemin, carte, x, y, nbr_villes)
 %
 % SYNOPSIS [] = affiche_chemin (chemin, carte ,x, y)
 %          
-% INPUT * chemin : vecteur contenant les villes ‡ visiter dans l'ordre
-%         carte : carte ‡ afficher 
-%         x,y : coordonnÈes des villes
+% INPUT * chemin : vecteur contenant les villes √† visiter dans l'ordre
+%         carte : carte √† afficher 
+%         x,y : coordonn√©es des villes
 %         
 % OUTPUT Affichage du chemin sur la carte
 %
@@ -16,7 +16,7 @@ image(carte) ;
 x_new = [];
 y_new = [] ;
 
-%CrÈe la liste des coordonnÈes dans l'ordre du chemin
+%Cr√©e la liste des coordonn√©es dans l'ordre du chemin
  
 for k=1:nbr_villes 
     ville = chemin(k) ;
@@ -25,5 +25,6 @@ for k=1:nbr_villes
 end 
 
 hold on ;
-plot(x_new,y_new) ;
+plot(x_new,y_new,'linewidth',4) ;
+title ("Chemin de l'algorithme g√©n√©tique",'fontsize',16) ;
 end 
