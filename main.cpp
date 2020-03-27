@@ -41,7 +41,24 @@ int main()
     double proba = 0.4 ;
     int iter = 6000 ;
     int q = 3 ;
-    Individu* result=algo_genetique(iter, proba, roulette, elite, nbr, &chemin_0, q) ;
+    vector<Individu*> best ;
+    Individu* result ;
+
+    for (int k=0 ; k<50; k++)
+        result=algo_genetique(iter, proba, tournoi, elite, nbr, &chemin_0, q) ;
+        best.push_back(result) ;
+
+    double adaptation = 10000 ;
+    vector<Individu*>::const_iterator it=best.begin() ;
+
+    for (;it!=best.end();it++)
+    {
+        if ((*it)->adaptation() < adaptation)
+            result = *it ;
+    }
+    
+    result->print(cout) ;
+    cout << endl ;
 
     ///////////////////////// ECRITURE D'UN FICHIER RENVOYANT LE CHEMIN OPTIMAL /////////////////////////
 
