@@ -45,7 +45,7 @@ int main()
     Individu* result ;
 
     for (int k=0 ; k<50; k++)
-        result=algo_genetique(iter, proba, tournoi, elite, nbr, &chemin_0, q) ;
+        result=algo_genetique(iter, proba, tournoi, elite, 1000, &chemin_0, q) ;
         best.push_back(result) ;
 
     double adaptation = 10000 ;
