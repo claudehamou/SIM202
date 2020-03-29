@@ -174,8 +174,8 @@ Population& pop_finale_enfants(const Population &parent, Population &enfant)
         {
             double best_i = (*it)->adaptation() ;
             if (best_i < best)
-                enfant.bestIndividu = (*it)->clone() ;
-                best = best_i ;
+                {enfant.bestIndividu = (*it)->clone() ;
+                best = best_i ;}
         }
     return enfant ;
 }
