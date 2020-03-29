@@ -168,7 +168,7 @@ Population& pop_finale_enfants(const Population &parent, Population &enfant)
 {
     std::vector<Individu*>::iterator it=enfant.popu.begin() ;
     double best=parent.bestIndividu->adaptation() ;
-    enfant.bestIndividu = parent.bestIndividu ;
+    enfant.bestIndividu = parent.bestIndividu->clone() ;
 
     for (;it!=enfant.popu.end();it++)
         {
