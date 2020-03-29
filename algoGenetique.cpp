@@ -45,7 +45,7 @@ Population& Population::operator=(const Population& pop)
          else
             popu[i]=pop.popu[i]->clone();
      }
-    if (bestIndividu!=0)
+    if (pop.bestIndividu!=0)
         bestIndividu=pop.bestIndividu->clone() ;
     else
         bestIndividu=0 ;
