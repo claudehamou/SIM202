@@ -58,8 +58,10 @@ int main()
     for (int k=0; k<tours; k++)
     {
         if (best.at(k)->adaptation() < adaptation)
+        {
             adaptation = best.at(k)->adaptation();
             result = best.at(k)->clone();
+        }
     }
 
     result->print(cout);
