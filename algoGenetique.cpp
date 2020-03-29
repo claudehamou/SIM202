@@ -221,9 +221,9 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
     }
     
     if (triEnfant.begin()->first < triParent.begin()->first)
-        Pop_finale.bestIndividu = triEnfant.begin()->second->clone;
+        Pop_finale.bestIndividu = triEnfant.begin()->second->clone();
     else
-        Pop_finale.bestIndividu = triParent.begin()->second->clone;
+        Pop_finale.bestIndividu = triParent.begin()->second->clone();
 
     return (Pop_finale);
 }
