@@ -64,6 +64,7 @@ Chemin & Chemin::operator = (const Chemin &C)
 double Chemin::adaptation()
 {
     double adapt=0;
+    if (this==0){return 0;}
     int n=villes.size();
     for(int i=0;i<n-1;i++)
     {
