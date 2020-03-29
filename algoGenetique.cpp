@@ -19,20 +19,25 @@ double reel_rand(double a, double b) // genere un nombre random entre a et b (re
 
 Population::Population(const Population& pop)
 {
-    taillePopulation=pop.taillePopulation;
-     popu.resize(pop.taillePopulation);
-     for (int i=0;i<taillePopulation;i++)
-     {
-         popu[i]=pop.popu[i]->clone();
-     };
-    bestIndividu=pop.bestIndividu ;
+    taillePopulation = pop.taillePopulation;
+    popu.resize(taillePopulation);
+    for (int i = 0; i < taillePopulation; i++)
+    {
+        if (pop.popu[i]==0){popu[i]=0;}
+        else {popu[i] = pop.popu[i]->clone();}
+    };
+    if (pop.bestIndividu!=0)
+    {
+        bestIndividu=pop.bestIndividu->clone();
+    }
+    else{bestIndividu = 0;}
 }
 
 Population& Population::operator=(const Population& pop)
 {
      clean();
      taillePopulation=pop.taillePopulation;
-     popu.resize(pop.taillePopulation);
+     popu.resize(taillePopulation);
      for (int i=0;i<taillePopulation;i++)
      {
          if (pop.popu[i]==0)
