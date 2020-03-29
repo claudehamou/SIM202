@@ -25,7 +25,7 @@ Population::Population(const Population& pop)
     {
         if (pop.popu[i]==0){popu[i]=0;}
         else {popu[i] = pop.popu[i]->clone();}
-    };
+    }
     if (pop.bestIndividu!=0)
     {
         bestIndividu=pop.bestIndividu->clone();
