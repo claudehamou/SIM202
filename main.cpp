@@ -37,29 +37,34 @@ int main()
     }
 
     ///////////////////////////////// ALGORITHME GENETIQUE ///////////////////////////////////////////////
-    Chemin chemin_0(&mes_villes);
-    double proba = 0.4 ;
-    int iter = 6000 ;
-    int q = 3 ;
-    int taille = 1000;
-    vector<Individu*> best ;
-    Individu* result ;
-
-    for (int k=0 ; k<50; k++)
-        result=algo_genetique(iter, proba, tournoi, elite, taille, &chemin_0, q) ;
-        best.push_back(result) ;
-
-    double adaptation = 10000 ;
-    vector<Individu*>::const_iterator it=best.begin() ;
-
-    for (;it!=best.end();it++)
-    {
-        if ((*it)->adaptation() < adaptation)
-            result = *it ;
-    }
     
-    result->print(cout) ;
-    cout << endl ;
+    Chemin chemin_0(&mes_villes);
+    double proba = 0.3;
+    int iter = 50;
+    int q = 100;
+    int taille = 1000;
+    vector<Individu*> best;
+    int tours=10;
+    best.resize(tours);
+    Individu* result;
+
+    for (int k = 0; k < tours; k++)
+        {result = algo_genetique(iter, proba, tournoi, elite, taille, &chemin_0, q);
+        best.at(k)=result->clone();}
+
+    double adaptation = 10000;
+    vector<Individu*>::const_iterator it = best.begin();
+
+    for (int k=0; k<tours; k++)
+    {
+        if (best.at(k)->adaptation() < adaptation)
+            adaptation = best.at(k)->adaptation();
+            result = best.at(k)->clone();
+    }
+
+    result->print(cout);
+    cout << endl;
+    cout << result->adaptation() <<endl;
 
     ///////////////////////// ECRITURE D'UN FICHIER RENVOYANT LE CHEMIN OPTIMAL /////////////////////////
 
