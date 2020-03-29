@@ -1,7 +1,7 @@
 #ifndef GRAPHE_CHEMIN_HPP_INCLUDED
 #define GRAPHE_CHEMIN_HPP_INCLUDED
 
-#include "individu.h"
+#include "algoGenetique.h"
 #include <iostream>
 #include <cstdlib>
 using namespace std;
