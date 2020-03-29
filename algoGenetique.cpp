@@ -222,7 +222,7 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
     {
         Pop_finale.popu.at(j+q)=it4->second->clone();
         j++;
-        it3++;
+        it4++;
     }
     
     if (triEnfant.begin()->first < triParent.begin()->first)
