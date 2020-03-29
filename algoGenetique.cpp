@@ -229,7 +229,7 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
 }
 
 // ------------------------------------ FONCTION ALGO GENETIQUE -------------------------------------------
-Population algo_genetique(int iter, double proba, typeselection sel, typefinale fin, int taille, Individu* indiv0, int q)
+Individu* algo_genetique(int iter, double proba, typeselection sel, typefinale fin, int taille, Individu* indiv0, int q)
 {
     srand(time(NULL));
     int borne=0 ;
@@ -291,6 +291,6 @@ Population algo_genetique(int iter, double proba, typeselection sel, typefinale 
         }
 
     }
-    return pop_0 ;
+    return pop_0.bestIndividu ;
 
 }
