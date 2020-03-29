@@ -1,5 +1,5 @@
 #include "graphe_chemin.hpp"
-#include "individu.h"
+#include "algoGenetique.h"
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
