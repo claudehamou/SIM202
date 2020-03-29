@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string.h>
-#include "graphe.hpp"
+#include "graphe_chemin.hpp"
 #include "algoGenetique.h"
 using namespace std;
 
