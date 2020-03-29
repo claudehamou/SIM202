@@ -207,7 +207,7 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
     multimap <double, Individu*>::iterator it3=triParent.begin();
     while (k < q)
     {
-        Pop_finale.popu.at(k)=it3->second->clone;
+        Pop_finale.popu.at(k)=it3->second->clone();
         k++;
         it3++;
     }
