@@ -59,4 +59,6 @@ Population pop_finale_elitisme(int q, const Population &parent, const Population
 int rand_0_n(int n); // fonction pour generer un entier aleatoire de 0 a (n-1)
 double reel_rand(double a, double b); // genere un nombre random entre a et b (reel)
 
+Individu* algo_genetique(int,double,typeselection,typefinale,int,Individu*,int);
+
 #endif // ALGOGENETIQUE_H_INCLUDED
