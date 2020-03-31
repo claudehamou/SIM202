@@ -5,12 +5,12 @@
 #include <list>
 #include <iostream>
 
-int rand_0_n(int n) // fonction qui genere un entier aleatoire entre 0 et n-1 inclus
+int rand_0_n(int n) // fonction qui genere un entier aleatoire entre 0 et n-1 inclus, proba uniforme
 {
     return rand() % n;
 }
 
-double reel_rand(double a, double b) // genere un nombre random entre a et b (reel)
+double reel_rand(double a, double b) // genere un nombre random entre a et b (reel), proba uniforme
 {
     return (rand() / (double)RAND_MAX) * (b - a) + a;
 }
@@ -65,7 +65,7 @@ Population Population::selection_roulette()
         vector<Individu*>::iterator it = popu.begin();
         for (; it != popu.end(); it++)
         {
-            S += (*it)->adaptation();
+            S += (*it)->adaptation();            //somme de toutes les fonctions d'adaptation
         }
         double r = reel_rand(0, S);
         double S_aux = 0;
@@ -85,7 +85,7 @@ Population Population::selection_roulette()
         }
         parcours++;
     }
-    enfants.popu.at(0)=bestIndividu->clone();
+    enfants.popu.at(0)=bestIndividu->clone(); //on place le meilleur individu en 0
     return (enfants);
 }
 
@@ -104,7 +104,7 @@ Population Population::selection_rang()
         vector<Individu*>::iterator it = popu.begin();
         for (; it != popu.end(); it++)
         {
-            tripop.insert(make_pair(-((*it)->adaptation()), *it)); //cout << (*it)->adaptation() << endl;        // IL Y PASSE n CARRE FOIS
+            tripop.insert(make_pair(-((*it)->adaptation()), *it));
         }
         double r = reel_rand(0, S);      //rang limite r selectionne entre 0 et S
         double S_aux = 0;
@@ -121,11 +121,11 @@ Population Population::selection_rang()
         }
         else
         {
-            enfants.popu.at(parcours) = it2->second->clone();     //it2->second est l'Individu* de la multimap au "rang" it
+            enfants.popu.at(parcours) = it2->second->clone();
         }
         parcours++;
     }
-    enfants.popu.at(0)=bestIndividu->clone();
+    enfants.popu.at(0)=bestIndividu->clone(); //on place le meilleur individu en 0
     return (enfants);
 }
 
@@ -155,15 +155,15 @@ Population Population::selection_tournoi(const double proba)
         else
             best = 2;
 
-        // Choix du meilleur
+        // Choix du vainqueur
         double prb = reel_rand(0, 1);
         if ((prb < proba && best == 1) || (prb > proba && best == 2))
             enfant.popu[i] = itl->first->clone();
-        if ((prb < proba && best == 2) || (prb > proba && best == 1))
+        else
             enfant.popu[i] = itl->second->clone();
     }
 
-    enfant.popu.at(0)=bestIndividu->clone();
+    enfant.popu.at(0)=bestIndividu->clone(); //on place le meilleur individu en 0
     return (enfant);
 }
 
@@ -176,7 +176,7 @@ Population& pop_finale_enfants(const Population& parent, Population& enfant)
     enfant.bestIndividu = parent.bestIndividu->clone();
     double best_i;
 
-    for (; it != enfant.popu.end(); it++)
+    for (; it != enfant.popu.end(); it++) //on cherche le meilleur individu de enfant
     {
         best_i = (*it)->adaptation();
         if (best_i < best)
@@ -199,7 +199,7 @@ Population pop_finale_elitisme(int q, const Population& parent, const Population
     }
 
     Population Pop_finale(p);
-    multimap <double, Individu*> triParent; // permet de trier
+    multimap <double, Individu*> triParent; // permet de trier dans l'ordre croissant avec insert()
     multimap <double, Individu*> triEnfant;
 
     vector<Individu*>::const_iterator it = parent.popu.begin();
@@ -283,7 +283,7 @@ Individu* algo_genetique(int iter, double proba, typeselection sel, typefinale f
             pop_enfant.popu.at(i) = &pop_enfant.popu.at(i)->flip();
             pop_enfant.popu.at(i + 1) = &pop_enfant.popu.at(i + 1)->flip();
         }
-        pop_enfant.popu.at(2)=pop_0.bestIndividu->clone();  //comme le meilleur etait en 0, 0 et 1 descendent du meilleur : on remplace plutot 2
+        pop_enfant.popu.at(2)=pop_0.bestIndividu->clone();  //comme le meilleur etait en 0, 0 et 1 descendent du meilleur : on remplace plutot 2 par bestIndividu, pour le sauvegarder
 
         //-------------------------SELECTION----------------------
         Population new_pop(taille);
