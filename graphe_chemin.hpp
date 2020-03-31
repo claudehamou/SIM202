@@ -11,66 +11,66 @@ using namespace std;
 
 class Graphe
 {
-public :
+public:
     int nbvilles;   //nombre de villes
     double* distances;   //tableau des distances entre les villes
 
     Graphe(int);        //constructeur a partir du nombre de villes
-    Graphe & operator = (const Graphe &);       //constructeur par copie
-    double & operator () (int i,int j) {return distances[nbvilles*i+j];}         //acces non const a la distance entre les villes i et j
-    double operator () (int i,int j) const {return distances[nbvilles*i+j];}     //acces const a la distance entre les villes i et j
+    Graphe& operator = (const Graphe&);       //constructeur par copie
+    double& operator () (int i, int j) { return distances[nbvilles * i + j]; }         //acces non const a la distance entre les villes i et j
+    double operator () (int i, int j) const { return distances[nbvilles * i + j]; }     //acces const a la distance entre les villes i et j
 
-    friend ostream & operator <<(ostream &, const Graphe&);
+    friend ostream& operator <<(ostream&, const Graphe&);
 };
 
-inline ostream & operator <<(ostream & out, const Graphe &G)
+inline ostream& operator <<(ostream& out, const Graphe& G)
 {
-    for (int i=0;i<G.nbvilles;i++)
+    for (int i = 0; i < G.nbvilles; i++)
     {
-        out<<"|";
-        for (int j=0;j<G.nbvilles-1;j++)
+        out << "|";
+        for (int j = 0; j < G.nbvilles - 1; j++)
         {
-            out<<G(i,j)<<",";
+            out << G(i, j) << ",";
         }
-        out<<G(i,G.nbvilles-1)<<"|"<<"\n";
+        out << G(i, G.nbvilles - 1) << "|" << "\n";
     }
-    return out ;
+    return out;
 }
 
 ////////////////////////////////////////////////// CLASSE CHEMIN ///////////////////////////////////////////////////
 
-class Chemin : public Individu
+class Chemin : public Individu       //classe fille de Individu
 {
-public :
-    Graphe *graphe;
+public:
+    Graphe* graphe;
     vector<int> villes;
 
     Chemin();
     Chemin(Graphe*);    //construction d'un chemin a partir d'un graphe
-    Chemin & operator = (const Chemin &);       //constructeur par copie
+    Chemin& operator = (const Chemin&);       //constructeur par copie
 
-    int operator()(int i) const {return villes.at(i);}; // ieme coordonnee en lecteur
-    int& operator()(int i) {return villes.at(i);}; // ieme coordonnee en ecriture
+    int operator()(int i) const { return villes.at(i); }; // ieme coordonnee en lecteur
+    int& operator()(int i) { return villes.at(i); }; // ieme coordonnee en ecriture
 
-    void print(ostream&)const ;
-    friend ostream & operator <<(ostream &, const Chemin&);
+    void print(ostream&)const;
+    friend ostream& operator <<(ostream&, const Chemin&);
 
     double adaptation();    //calcule la fonction d'adaptation, ie le cout du chemin
     Chemin& flip();      //procede a la mutation
     Chemin* initialise_indiv();      //donne un chemin initial qui prend le plus proche voisin
-    Individu* clone(){return new Chemin(*this);}
-    pair<Individu*,Individu*> crossover(const Individu& ind_2) ;
+    Individu* clone() { return new Chemin(*this); }
+    pair<Individu*, Individu*> crossover(const Individu& ind_2);
 };
 
 
-inline ostream & operator <<(ostream & out, const Chemin &C)
+inline ostream& operator <<(ostream& out, const Chemin& C)
 {
-    for (unsigned short int i=0;i<(unsigned short)((C.villes).size()-1);i++)
+    for (unsigned short int i = 0; i < (unsigned short)((C.villes).size() - 1); i++)
     {
-        out<<C(i)+1<<" ";
+        out << C(i) + 1 << " ";
     }
-    out<<C((C.villes).size()-1)+1;
-    return out ;
+    out << C((C.villes).size() - 1) + 1;
+    return out;
 }
 
 #endif // GRAPHE_CHEMIN_HPP_INCLUDED
