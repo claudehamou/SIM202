@@ -41,19 +41,20 @@ int main()
     Chemin chemin_0(&mes_villes);   //initialisation du chemin par la methode du plus proche voisin
 
         // PARAMETRES MODIFIABLES
-    int iter = 50;              //nombre d'iterations sans changement accepte
-    double proba = 0.8;         //probabilite de victoire dans tournoi
-    int q = 700;                //nombre de parents conserves dans elite
-    int taille = 1000;          //taille de la population
-    int tours=1;                //nombre de repetitions de l'algorithme
-
+    int iter = 50;                  //nombre d'iterations sans changement accepte
+    double proba = 0.8;             //probabilite de victoire dans tournoi
+    int q = 700;                    //nombre de parents conserves dans elite
+    int taille = 1000;              //taille de la population
+    int tours=1;                    //nombre de repetitions de l'algorithme
+    typeselection sel = tournoi;    //fonction de selection des reproducteurs : tournoi, rang ou roulette
+    typefinale fin = elite;         //fonction de selection de la popu finale : elite ou enfant
 
     vector<Individu*> best;     //pour conserver les resultats de tous les tours
     best.resize(tours);
     Individu* result;
 
     for (int k = 0; k < tours; k++)
-        {result = algo_genetique(iter, proba, tournoi, enfant, taille, &chemin_0, q);   //calcule le meilleur chemin possible
+        {result = algo_genetique(iter, proba, sel, fin, taille, &chemin_0, q);   //calcule le meilleur chemin possible
         best.at(k)=result->clone();}    //range la solution dans le vecteur best
 
     double adaptation = 10000;
